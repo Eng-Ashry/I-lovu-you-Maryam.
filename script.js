@@ -1,5 +1,5 @@
 /* =========================================================
-   HAPPY BIRTHDAY MARYAM
+     MARYAM
    SCRIPT.JS
 ========================================================= */
 
@@ -1315,7 +1315,7 @@ function finishBirthdayImmediately() {
 
 
         const text =
-            "HAPPY BIRTHDAY TO YOU MARYAM";
+            "HAPPY🎁BIRTHDAY TO YOU MARYAM🫀🥰";
 
 
         [...text].forEach(
