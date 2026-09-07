@@ -2989,7 +2989,7 @@ body {
 }
 
 
-/* =========================================================
+ /* =========================================================
    VERY SMALL PHONES
 ========================================================= */
 
@@ -3008,10 +3008,12 @@ body {
         font-size: 82px;
     }
 
+    /* القوس والسهم - أبعد عن الحافة وأعلى قليلًا */
     #archery-area {
-        left: -12px;
-        bottom: 5px;
-        transform: scale(.52);
+        left: 50px;
+        bottom: 60px;
+        transform: scale(.58);
+        transform-origin: bottom left;
     }
 
     #power-area {
@@ -3030,4 +3032,5 @@ body {
 
         font-size: 14px;
     }
+
 }
