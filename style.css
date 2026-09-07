@@ -1,0 +1,3033 @@
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: #08020f;
+    color: white;
+    font-family: Arial, Tahoma, sans-serif;
+}
+
+
+/* =========================================================
+   MAIN SCREEN
+========================================================= */
+
+#game {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    min-height: 500px;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            #541879 0%,
+            #28103e 35%,
+            #10051d 70%,
+            #050208 100%
+        );
+}
+
+
+/* =========================================================
+   BACKGROUND LIGHT
+========================================================= */
+
+#game::before {
+    content: "";
+
+    position: absolute;
+
+    width: 80vw;
+    height: 80vw;
+
+    max-width: 1000px;
+    max-height: 1000px;
+
+    left: 50%;
+    top: 45%;
+
+    transform: translate(-50%, -50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(211, 91, 255, .16),
+            transparent 68%
+        );
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   STARS
+========================================================= */
+
+#stars {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.star {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 6px white,
+        0 0 15px #e18aff;
+
+    animation:
+        starTwinkle 1.5s infinite alternate;
+}
+
+@keyframes starTwinkle {
+
+    from {
+        opacity: .2;
+        transform: scale(.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1.6);
+    }
+}
+
+
+/* =========================================================
+   ELEPHANT
+========================================================= */
+
+#target-area {
+    position: absolute;
+
+    left: 50%;
+    top: 43%;
+
+    transform: translate(-50%, -50%);
+
+    z-index: 10;
+}
+
+#elephant {
+    font-size: clamp(90px, 15vw, 190px);
+
+    line-height: 1;
+
+    user-select: none;
+
+    filter:
+        drop-shadow(0 0 12px #b87cff)
+        drop-shadow(0 0 35px #8b36ff);
+}
+
+#elephant.hit {
+    animation:
+        elephantHit .75s ease forwards;
+}
+
+@keyframes elephantHit {
+
+    0% {
+        transform: scale(1);
+    }
+
+    15% {
+        transform:
+            scale(1.2)
+            rotate(-7deg);
+    }
+
+    30% {
+        transform:
+            scale(1.25)
+            rotate(7deg);
+    }
+
+    50% {
+        transform:
+            scale(1.1)
+            rotate(-4deg);
+    }
+
+    100% {
+        transform: scale(0);
+        opacity: 0;
+    }
+}
+
+
+/* =========================================================
+   ARCHERY
+========================================================= */
+
+#archery-area {
+
+    position: absolute;
+
+    left: 25px;
+    bottom: 30px;
+
+    width: 280px;
+    height: 220px;
+
+    z-index: 50;
+
+    transition:
+        opacity .5s ease,
+        transform .5s ease;
+}
+
+#archery-area.hidden {
+
+    opacity: 0;
+
+    transform:
+        scale(.1)
+        rotate(-20deg);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   BOW
+========================================================= */
+
+#bow {
+
+    position: absolute;
+
+    left: 20px;
+    bottom: 15px;
+
+    width: 140px;
+    height: 180px;
+
+    border:
+        11px solid #a9652e;
+
+    border-left: none;
+
+    border-radius:
+        0
+        100px
+        100px
+        0;
+
+    transform:
+        rotate(-25deg);
+
+    filter:
+        drop-shadow(
+            0 0 8px #ff9e43
+        );
+}
+
+
+/* =========================================================
+   BOW STRING
+========================================================= */
+
+#bow-string {
+
+    position: absolute;
+
+    left: -3px;
+    top: 0;
+
+    width: 150px;
+    height: 170px;
+
+    border-right:
+        3px solid #fff1d0;
+
+    border-radius:
+        0 100px 100px 0;
+
+    filter:
+        drop-shadow(0 0 3px white);
+}
+
+
+/* =========================================================
+   ARROW
+========================================================= */
+
+#arrow {
+
+    position: absolute;
+
+    left: 53px;
+    top: 96px;
+
+    width: 175px;
+    height: 6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #bd833f,
+            #fff0c9
+        );
+
+    border-radius: 10px;
+
+    transform:
+        rotate(-12deg);
+
+    transform-origin:
+        left center;
+
+    z-index: 100;
+
+    cursor: grab;
+
+    touch-action: none;
+
+    user-select: none;
+
+    transition:
+        box-shadow .2s ease;
+}
+
+#arrow:active {
+    cursor: grabbing;
+}
+
+
+/* =========================================================
+   ARROW HEAD
+========================================================= */
+
+#arrow-head {
+
+    position: absolute;
+
+    right: -4px;
+    top: -8px;
+
+    width: 0;
+    height: 0;
+
+    border-left:
+        22px solid #f4f4f4;
+
+    border-top:
+        10px solid transparent;
+
+    border-bottom:
+        10px solid transparent;
+
+    filter:
+        drop-shadow(
+            0 0 4px white
+        );
+}
+
+
+/* =========================================================
+   ARROW TAIL
+========================================================= */
+
+#arrow-tail {
+
+    position: absolute;
+
+    left: 0;
+    top: -7px;
+
+    width: 28px;
+    height: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            transparent 32%,
+            #9b4cff 33%,
+            #9b4cff 58%,
+            transparent 59%
+        );
+}
+
+
+/* =========================================================
+   POWER
+========================================================= */
+
+#power-area {
+
+    position: absolute;
+
+    left: 25px;
+    bottom: 270px;
+
+    width: 260px;
+
+    z-index: 60;
+
+    opacity: 0;
+
+    transform:
+        translateY(15px);
+
+    transition:
+        opacity .3s,
+        transform .3s;
+
+    pointer-events: none;
+}
+
+#power-area.show {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+#power-label {
+
+    text-align: center;
+
+    margin-bottom: 8px;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 8px #c36aff,
+        0 0 20px #8d32ff;
+}
+
+#power-value {
+
+    color: #ff72dd;
+
+    font-size: 20px;
+}
+
+#power-bar {
+
+    width: 100%;
+    height: 13px;
+
+    padding: 2px;
+
+    border:
+        1px solid #c66aff;
+
+    border-radius: 20px;
+
+    background:
+        rgba(10, 2, 20, .8);
+
+    overflow: hidden;
+
+    box-shadow:
+        0 0 12px rgba(184, 67, 255, .5);
+}
+
+#power-fill {
+
+    width: 0%;
+    height: 100%;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            90deg,
+            #6420ff,
+            #b832ff,
+            #ff43c8,
+            #fff
+        );
+
+    box-shadow:
+        0 0 10px #db43ff,
+        0 0 25px #ff43ce;
+
+    transition:
+        width .04s linear;
+}
+
+
+/* =========================================================
+   HIT EXPLOSION
+========================================================= */
+
+#hit-effect {
+
+    position: absolute;
+
+    left: 50%;
+    top: 43%;
+
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 20px white,
+        0 0 50px #ff43dd,
+        0 0 100px #963cff;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(.1);
+
+    pointer-events: none;
+
+    z-index: 150;
+}
+
+#hit-effect.active {
+
+    animation:
+        hitExplosion .8s ease-out forwards;
+}
+
+@keyframes hitExplosion {
+
+    0% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(.2);
+    }
+
+    35% {
+        opacity: 1;
+        transform:
+            translate(-50%, -50%)
+            scale(5);
+    }
+
+    100% {
+        opacity: 0;
+        transform:
+            translate(-50%, -50%)
+            scale(18);
+    }
+}
+
+
+/* =========================================================
+   زرار انجز
+========================================================= */
+
+#finish-button {
+
+    position: absolute;
+
+    right: 20px;
+    bottom: 20px;
+
+    min-width: 105px;
+    height: 50px;
+
+    padding: 0 20px;
+
+    border: 2px solid #ff9bea;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #7625d9,
+            #bd35ed,
+            #f052c8
+        );
+
+    color: white;
+
+    font-size: 17px;
+    font-weight: 900;
+
+    cursor: pointer;
+
+    z-index: 500;
+
+    box-shadow:
+        0 0 12px #c83cff,
+        0 0 28px rgba(255, 67, 215, .55);
+
+    transition:
+        transform .2s ease,
+        box-shadow .2s ease,
+        opacity .3s ease;
+}
+
+#finish-button:hover {
+
+    transform:
+        scale(1.07)
+        translateY(-2px);
+
+    box-shadow:
+        0 0 20px #e454ff,
+        0 0 40px rgba(255, 67, 215, .75);
+}
+
+#finish-button:active {
+
+    transform:
+        scale(.94);
+}
+
+#finish-button.hidden {
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    transform:
+        scale(.5);
+}
+
+
+/* =========================================================
+   CAKE
+========================================================= */
+
+#cake-area {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 13%;
+
+    width: min(330px, 72vw);
+    height: 280px;
+
+    transform:
+        translateX(-50%);
+
+    z-index: 20;
+
+    opacity: 0;
+
+    pointer-events: none;
+}
+
+#cake-area.show {
+    opacity: 1;
+}
+
+
+/* =========================================================
+   CAKE LAYERS
+========================================================= */
+
+.cake-layer {
+
+    position: absolute;
+
+    left: 50%;
+
+    height: 58px;
+
+    transform:
+        translateX(-50%)
+        translateY(-300px)
+        rotate(8deg);
+
+    opacity: 0;
+
+    border:
+        3px solid #ffd9ef;
+
+    border-radius: 14px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffb6dc,
+            #e75ba4,
+            #c83c88
+        );
+
+    box-shadow:
+        0 5px 0 rgba(70, 10, 50, .5),
+        0 0 20px rgba(255, 75, 190, .5),
+        inset 0 -15px 20px rgba(80, 10, 55, .2);
+}
+
+.cake-layer-1 {
+    width: 100%;
+    bottom: 0;
+}
+
+.cake-layer-2 {
+    width: 85%;
+    bottom: 50px;
+}
+
+.cake-layer-3 {
+    width: 69%;
+    bottom: 100px;
+}
+
+.cake-layer-4 {
+    width: 53%;
+    bottom: 150px;
+}
+
+.cake-icing {
+
+    position: absolute;
+
+    left: 3%;
+    top: 4px;
+
+    width: 94%;
+    height: 18px;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            #ffffff,
+            #ffd9ef
+        );
+
+    box-shadow:
+        0 0 10px white;
+}
+
+
+/* =========================================================
+   CAKE BUILD
+========================================================= */
+
+#cake-area.build .cake-layer-1 {
+    animation:
+        cakeLayer1 .75s
+        0s
+        cubic-bezier(.2,.9,.3,1)
+        forwards;
+}
+
+#cake-area.build .cake-layer-2 {
+    animation:
+        cakeLayer2 .75s
+        .45s
+        cubic-bezier(.2,.9,.3,1)
+        forwards;
+}
+
+#cake-area.build .cake-layer-3 {
+    animation:
+        cakeLayer3 .75s
+        .9s
+        cubic-bezier(.2,.9,.3,1)
+        forwards;
+}
+
+#cake-area.build .cake-layer-4 {
+    animation:
+        cakeLayer4 .75s
+        1.35s
+        cubic-bezier(.2,.9,.3,1)
+        forwards;
+}
+
+@keyframes cakeLayer1 {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            translateY(-260px)
+            rotate(-10deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(12px)
+            rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+    }
+}
+
+@keyframes cakeLayer2 {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            translateY(-320px)
+            rotate(12deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(12px)
+            rotate(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+    }
+}
+
+@keyframes cakeLayer3 {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            translateY(-370px)
+            rotate(-12deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(10px)
+            rotate(2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+    }
+}
+
+@keyframes cakeLayer4 {
+
+    0% {
+        opacity: 0;
+        transform:
+            translateX(-50%)
+            translateY(-420px)
+            rotate(15deg);
+    }
+
+    70% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(10px)
+            rotate(-2deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(0);
+    }
+}
+
+
+/* =========================================================
+   CANDLE
+========================================================= */
+
+#candle {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 204px;
+
+    width: 24px;
+    height: 68px;
+
+    transform:
+        translateX(-50%)
+        scale(0);
+
+    transform-origin: bottom;
+
+    border-radius: 6px;
+
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #fff 0 8px,
+            #8d51ff 8px 16px
+        );
+
+    z-index: 30;
+}
+
+#cake-area.build #candle {
+
+    animation:
+        candleAppear
+        .6s
+        2.05s
+        ease-out
+        forwards;
+}
+
+@keyframes candleAppear {
+
+    0% {
+        transform:
+            translateX(-50%)
+            scale(0);
+    }
+
+    70% {
+        transform:
+            translateX(-50%)
+            scale(1.15);
+    }
+
+    100% {
+        transform:
+            translateX(-50%)
+            scale(1);
+    }
+}
+
+
+/* =========================================================
+   FLAME
+========================================================= */
+
+#flame {
+
+    position: absolute;
+
+    left: 50%;
+    top: -30px;
+
+    width: 22px;
+    height: 32px;
+
+    transform:
+        translateX(-50%)
+        rotate(-45deg);
+
+    border-radius:
+        50%
+        50%
+        50%
+        0;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff4a0,
+            #ffb000,
+            #ff5900
+        );
+
+    box-shadow:
+        0 0 10px #ffbd00,
+        0 0 25px #ff7100,
+        0 0 45px #ff5a00;
+
+    animation:
+        flameMove .25s
+        infinite alternate;
+}
+
+@keyframes flameMove {
+
+    from {
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            scale(.9);
+    }
+
+    to {
+        transform:
+            translateX(-50%)
+            rotate(-45deg)
+            scale(1.15);
+    }
+}
+
+
+/* =========================================================
+   BIRTHDAY TEXT
+========================================================= */
+
+#birthday-message {
+
+    position: absolute;
+
+    left: 50%;
+    top: 4%;
+
+    width: 96%;
+
+    transform:
+        translateX(-50%);
+
+    text-align: center;
+
+    z-index: 100;
+
+    pointer-events: none;
+
+    direction: ltr;
+}
+
+#birthday-text {
+
+    min-height: 75px;
+
+    font-family:
+        "Georgia",
+        "Times New Roman",
+        serif;
+
+    font-size:
+        clamp(
+            25px,
+            5vw,
+            68px
+        );
+
+    font-weight: 900;
+
+    font-style: italic;
+
+    letter-spacing:
+        clamp(
+            1px,
+            .55vw,
+            8px
+        );
+
+    color: #ffffff;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 10px #ffd2f7,
+        0 0 20px #ff54d6,
+        0 0 40px #bb45ff,
+        0 0 70px #812aff;
+}
+
+.char {
+
+    display: inline-block;
+
+    opacity: 0;
+
+    transform:
+        translateX(-25px)
+        translateY(8px)
+        scale(.65)
+        rotate(-8deg);
+
+    color: #ffffff;
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 12px #ff65dc,
+        0 0 25px #b347ff;
+
+    white-space: pre;
+}
+
+.char.visible {
+
+    animation:
+        fancyLetter
+        .42s
+        cubic-bezier(.17,.89,.32,1.4)
+        forwards;
+}
+
+@keyframes fancyLetter {
+
+    0% {
+
+        opacity: 0;
+
+        transform:
+            translateX(-30px)
+            translateY(12px)
+            scale(.5)
+            rotate(-12deg);
+
+        filter:
+            blur(5px);
+    }
+
+    60% {
+
+        opacity: 1;
+
+        transform:
+            translateX(5px)
+            translateY(-3px)
+            scale(1.12)
+            rotate(2deg);
+
+        filter:
+            blur(0);
+    }
+
+    100% {
+
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            translateY(0)
+            scale(1)
+            rotate(0);
+
+        filter:
+            blur(0);
+    }
+}
+
+
+/* =========================================================
+   SPARKLES
+========================================================= */
+
+#sparkles,
+#fireworks {
+
+    position: absolute;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 80;
+}
+
+
+/* =========================================================
+   LOGIN
+========================================================= */
+
+#login-area {
+
+    position: absolute;
+
+    left: 50%;
+    bottom: 4%;
+
+    width: min(600px, 92%);
+
+    transform:
+        translateX(-50%)
+        translateY(40px);
+
+    opacity: 0;
+
+    pointer-events: none;
+
+    z-index: 120;
+}
+
+#login-area.show {
+
+    animation:
+        loginAppear .8s
+        ease-out
+        forwards;
+
+    pointer-events: auto;
+}
+
+@keyframes loginAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateX(-50%)
+            translateY(40px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+    }
+}
+
+
+/* =========================================================
+   PASSWORD
+========================================================= */
+
+#password-box {
+
+    display: flex;
+
+    gap: 10px;
+
+    width: 100%;
+
+    direction: ltr;
+}
+
+#password-input {
+
+    flex: 1;
+
+    min-width: 0;
+
+    height: 56px;
+
+    padding:
+        0 18px;
+
+    border:
+        2px solid #bb64ff;
+
+    border-radius: 16px;
+
+    outline: none;
+
+    background:
+        rgba(15, 4, 28, .94);
+
+    color: white;
+
+    font-size: 17px;
+
+    text-align: center;
+
+    box-shadow:
+        0 0 15px rgba(183, 78, 255, .3);
+}
+
+#password-input::placeholder {
+
+    color:
+        rgba(255, 220, 249, .75);
+}
+
+#password-input:focus {
+
+    border-color:
+        #ff69dc;
+
+    box-shadow:
+        0 0 12px #c43fff,
+        0 0 25px rgba(255, 65, 205, .35);
+}
+
+
+/* =========================================================
+   ENTER BUTTON
+========================================================= */
+
+#enter-button {
+
+    height: 56px;
+
+    padding:
+        0 22px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #8a2cff,
+            #c735ff,
+            #f052c8
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 0 18px rgba(208, 56, 255, .55);
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+}
+
+#enter-button:hover {
+
+    transform:
+        translateY(-2px)
+        scale(1.03);
+
+    box-shadow:
+        0 0 25px rgba(234, 71, 255, .8);
+}
+
+#enter-button:active {
+
+    transform:
+        scale(.95);
+}
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+#error-message {
+
+    margin-top: 10px;
+
+    text-align: center;
+
+    color: #ff91e7;
+
+    font-size: 19px;
+
+    font-weight: bold;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    text-shadow:
+        0 0 8px #ff2bc7,
+        0 0 15px #9f2fff;
+}
+
+#error-message.show {
+
+    visibility: visible;
+
+    animation:
+        errorShake .5s
+        ease-in-out
+        forwards;
+}
+
+@keyframes errorShake {
+
+    0% {
+        opacity: 0;
+        transform: translateX(0);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-7px);
+    }
+
+    80% {
+        transform: translateX(7px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+/* =========================================================
+   FINAL EXPLOSION
+========================================================= */
+
+#final-explosion {
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 20px white,
+        0 0 60px #ff3ddd,
+        0 0 120px #8e39ff;
+
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+
+    pointer-events: none;
+
+    z-index: 200;
+}
+
+#final-explosion.active {
+
+    animation:
+        finalBoom 1s
+        ease-out
+        forwards;
+}
+
+@keyframes finalBoom {
+
+    0% {
+
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(.1);
+    }
+
+    40% {
+
+        opacity: 1;
+
+        transform:
+            translate(-50%, -50%)
+            scale(10);
+    }
+
+    100% {
+
+        opacity: 0;
+
+        transform:
+            translate(-50%, -50%)
+            scale(30);
+    }
+}
+
+
+/* =========================================================
+   NEXT PAGE
+========================================================= */
+
+#next-page {
+
+    position: fixed;
+
+    inset: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+
+    display: block;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    background: #000;
+
+    z-index: 9999;
+
+    transition:
+        opacity .8s ease,
+        visibility .8s ease;
+}
+
+#next-page.active {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   BACKGROUND VIDEO
+========================================================= */
+
+#background-video {
+
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 100%;
+    min-height: 100%;
+
+    transform:
+        translate(-50%, -50%);
+
+    object-fit: cover;
+
+    object-position: center;
+
+    display: block;
+
+    z-index: 1;
+
+    background: #000;
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   VIDEO OVERLAY
+========================================================= */
+
+.video-overlay {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 2;
+
+    pointer-events: none;
+
+    background:
+        rgba(0, 0, 0, 0);
+}
+
+
+/* =========================================================
+   NEXT PAGE CONTENT
+========================================================= */
+
+#next-page-content {
+
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+
+    min-height: 0;
+
+    z-index: 3;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    padding: 30px;
+
+    text-align: center;
+
+    direction: rtl;
+
+    -webkit-overflow-scrolling: touch;
+
+    touch-action: pan-y;
+
+    background: transparent;
+
+    scroll-behavior: smooth;
+
+    overscroll-behavior-y: contain;
+
+    scrollbar-width: thin;
+}
+
+
+/* =========================================================
+   LOVE COUNTER
+========================================================= */
+
+.love-counter {
+
+    width: 100%;
+
+    min-height: 230px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+
+    padding: 30px 5px;
+
+    margin: 0 auto 40px;
+
+    direction: rtl;
+}
+
+.love-counter h2 {
+
+    margin: 0 0 8px;
+
+    font-size: clamp(22px, 4vw, 42px);
+
+    font-weight: 900;
+
+    color: #ffffff;
+
+    line-height: 1.3;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 12px #ffd2f7,
+        0 0 25px #ff54d6,
+        0 0 45px #bb45ff,
+        0 0 70px #812aff;
+}
+
+.counter-start-date {
+
+    margin: 0 0 18px !important;
+
+    font-size: clamp(15px, 2.5vw, 22px) !important;
+
+    font-weight: bold;
+
+    color: #ffd9f5 !important;
+
+    direction: ltr;
+
+    text-align: center;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 8px #ff65dc,
+        0 0 18px #a83cff;
+}
+
+
+/* =========================================================
+   COUNTER BOX
+========================================================= */
+
+.counter-box {
+
+    width: min(850px, 98vw);
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(6, minmax(0, 1fr));
+
+    gap: 8px;
+
+    padding: 15px 12px;
+
+    margin: 0 auto;
+
+    border:
+        1px solid rgba(255, 140, 235, .55);
+
+    border-radius: 24px;
+
+    background:
+        rgba(15, 3, 27, .58);
+
+    backdrop-filter:
+        blur(12px);
+
+    -webkit-backdrop-filter:
+        blur(12px);
+
+    box-shadow:
+        0 0 18px rgba(193, 62, 255, .35),
+        0 0 40px rgba(255, 55, 215, .16),
+        inset 0 0 25px rgba(255, 255, 255, .04);
+
+    transition:
+        transform .35s ease,
+        box-shadow .35s ease;
+
+    transform-origin: center;
+
+    overflow: hidden;
+}
+
+.counter-box:hover {
+
+    transform:
+        scale(1.035);
+
+    box-shadow:
+        0 0 25px rgba(207, 73, 255, .65),
+        0 0 55px rgba(255, 61, 220, .3),
+        inset 0 0 30px rgba(255, 255, 255, .06);
+}
+
+.counter-box:active {
+
+    transform:
+        scale(1.045);
+}
+
+.counter-item {
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 2px;
+
+    border-radius: 16px;
+
+    transition:
+        transform .25s ease,
+        background .25s ease;
+}
+
+.counter-item:hover {
+
+    transform:
+        translateY(-3px);
+
+    background:
+        rgba(255, 80, 220, .07);
+}
+
+.counter-item span {
+
+    display: block;
+
+    font-size: clamp(18px, 3.2vw, 34px);
+
+    font-weight: 900;
+
+    line-height: 1.1;
+
+    color: #ffffff;
+
+    direction: ltr;
+
+    white-space: nowrap;
+
+    text-shadow:
+        0 0 5px #ffffff,
+        0 0 12px #ff7be2,
+        0 0 25px #a93cff;
+}
+
+.counter-item small {
+
+    display: block;
+
+    margin-top: 6px;
+
+    font-size: clamp(9px, 1.6vw, 15px);
+
+    font-weight: bold;
+
+    line-height: 1;
+
+    color: #ffd9f5;
+
+    white-space: nowrap;
+
+    text-align: center;
+
+    text-shadow:
+        0 0 8px #d844ff;
+}
+
+
+/* =========================================================
+   CONTENT
+========================================================= */
+
+#next-page-content h2 {
+
+    font-size: 70px;
+
+    margin-bottom: 20px;
+
+    filter:
+        drop-shadow(
+            0 0 20px #ff4fd8
+        );
+}
+
+#next-page-content p {
+
+    font-size: 25px;
+
+    color: #ffd9f5;
+
+    text-shadow:
+        0 0 15px #e14fff;
+
+    line-height: 1.8;
+
+    max-width: 1100px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   MEMORY ITEMS
+========================================================= */
+
+.memory-item {
+
+    width: min(100%, 1100px);
+
+    margin: 35px auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 22px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   NORMAL IMAGES
+========================================================= */
+
+.memory-item > img {
+
+    display: block;
+
+    width: auto;
+
+    max-width: min(78vw, 600px);
+
+    height: auto;
+
+    max-height: 62vh;
+
+    object-fit: contain;
+
+    margin: 10px auto;
+
+    border-radius: 18px;
+
+    border:
+        2px solid rgba(255, 170, 240, .65);
+
+    box-shadow:
+        0 0 15px rgba(211, 72, 255, .35),
+        0 0 35px rgba(255, 70, 215, .18);
+
+    cursor: pointer;
+
+    transition:
+        transform .3s ease,
+        box-shadow .3s ease;
+}
+
+.memory-item > img:hover {
+
+    transform:
+        scale(1.025);
+
+    box-shadow:
+        0 0 22px rgba(225, 83, 255, .7),
+        0 0 45px rgba(255, 70, 215, .3);
+}
+
+
+/* =========================================================
+   MEMORY VIDEOS
+========================================================= */
+
+.memory-video,
+.memory-item > video {
+
+    display: block;
+
+    width: min(80vw, 720px);
+
+    max-width: 100%;
+
+    height: auto;
+
+    max-height: 65vh;
+
+    margin: 15px auto;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    border:
+        2px solid rgba(255, 170, 240, .65);
+
+    background: #000;
+
+    box-shadow:
+        0 0 18px rgba(211, 72, 255, .45),
+        0 0 40px rgba(255, 70, 215, .2);
+
+    display: block;
+}
+
+
+/* =========================================================
+   IMAGES 2 + 3 + 4
+   الصور جنب بعض
+========================================================= */
+
+.image-row-234 {
+
+    width: min(100%, 1000px);
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 14px;
+
+    margin:
+        45px auto;
+}
+
+.image-row-234 .expandable-image {
+
+    flex: 1 1 0;
+
+    min-width: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    cursor: pointer;
+
+    transition:
+        flex .4s ease,
+        transform .4s ease;
+}
+
+.image-row-234 .expandable-image img {
+
+    display: block;
+
+    width: 100%;
+
+    max-width: 100%;
+
+    height: 320px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    border:
+        2px solid rgba(255, 170, 240, .65);
+
+    box-shadow:
+        0 0 15px rgba(211, 72, 255, .35),
+        0 0 30px rgba(255, 70, 215, .18);
+
+    transition:
+        width .4s ease,
+        height .4s ease,
+        transform .4s ease,
+        box-shadow .4s ease;
+}
+
+.image-row-234 .expandable-image:hover img {
+
+    transform:
+        translateY(-5px);
+
+    box-shadow:
+        0 0 22px rgba(225, 83, 255, .7);
+}
+
+
+/* الصورة المختارة */
+
+.image-row-234 .expandable-image.active {
+
+    flex: 2.3 1 0;
+}
+
+.image-row-234 .expandable-image.active img {
+
+    height: 430px;
+
+    object-fit: contain;
+
+    background: #08020f;
+
+    transform:
+        scale(1.02);
+
+    box-shadow:
+        0 0 25px rgba(225, 83, 255, .8),
+        0 0 55px rgba(255, 70, 215, .35);
+}
+
+
+/* =========================================================
+   IMAGE 6 + VIDEO 3
+   جنب بعض
+========================================================= */
+
+.media-row-6-3 {
+
+    width: min(100%, 1050px);
+
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 25px;
+
+    margin:
+        45px auto;
+}
+
+.media-row-6-3 > img {
+
+    flex: 1 1 0;
+
+    width: 0;
+
+    max-width: 100%;
+
+    height: 420px;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    border:
+        2px solid rgba(255, 170, 240, .65);
+
+    background: rgba(0, 0, 0, .35);
+
+    box-shadow:
+        0 0 18px rgba(211, 72, 255, .4),
+        0 0 40px rgba(255, 70, 215, .2);
+}
+
+.media-row-6-3 > video {
+
+    flex: 1 1 0;
+
+    width: 0;
+
+    max-width: 100%;
+
+    height: 420px;
+
+    margin: 0;
+
+    object-fit: contain;
+
+    border-radius: 18px;
+
+    border:
+        2px solid rgba(255, 170, 240, .65);
+
+    background: #000;
+
+    box-shadow:
+        0 0 18px rgba(211, 72, 255, .4),
+        0 0 40px rgba(255, 70, 215, .2);
+}
+
+
+/* =========================================================
+   PAGE CONTROL BUTTONS
+========================================================= */
+
+#page-controls {
+
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+    z-index: 10001;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+
+    transition:
+        opacity .3s ease,
+        visibility .3s ease;
+}
+
+#page-controls.visible {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    pointer-events: auto;
+}
+
+
+/* =========================================================
+   CONTROL BUTTON
+========================================================= */
+
+#page-controls button {
+
+    width: 52px;
+    height: 52px;
+
+    border:
+        1px solid rgba(255, 255, 255, .35);
+
+    border-radius: 50%;
+
+    background:
+        rgba(25, 5, 40, .85);
+
+    backdrop-filter:
+        blur(10px);
+
+    -webkit-backdrop-filter:
+        blur(10px);
+
+    color: white;
+
+    font-size: 22px;
+
+    cursor: pointer;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    box-shadow:
+        0 0 12px rgba(211, 82, 255, .45),
+        0 0 25px rgba(255, 60, 220, .2);
+
+    transition:
+        transform .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+
+    position: relative;
+
+    z-index: 10002;
+
+    touch-action: manipulation;
+
+    -webkit-tap-highlight-color: transparent;
+
+    pointer-events: auto;
+}
+
+#page-controls button:hover {
+
+    transform:
+        scale(1.1);
+
+    background:
+        rgba(120, 35, 160, .85);
+
+    box-shadow:
+        0 0 18px rgba(224, 85, 255, .8),
+        0 0 35px rgba(255, 60, 220, .35);
+}
+
+#page-controls button:active {
+
+    transform:
+        scale(.9);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #target-area {
+        top: 38%;
+    }
+
+    #elephant {
+        font-size: 105px;
+    }
+
+    #archery-area {
+
+        left: 0;
+        bottom: 12px;
+
+        transform:
+            scale(.68);
+
+        transform-origin:
+            bottom left;
+    }
+
+    #power-area {
+
+        left: 8px;
+        bottom: 160px;
+
+        width: 175px;
+    }
+
+    #power-label {
+        font-size: 14px;
+    }
+
+    #birthday-message {
+
+        top: 5%;
+
+        width: 98%;
+    }
+
+    #birthday-text {
+
+        font-size:
+            clamp(
+                21px,
+                7vw,
+                38px
+            );
+
+        line-height: 1.35;
+
+        letter-spacing: 1px;
+    }
+
+    #cake-area {
+
+        width: 270px;
+        height: 230px;
+
+        bottom: 19%;
+    }
+
+    .cake-layer {
+        height: 48px;
+    }
+
+    .cake-layer-2 {
+        bottom: 42px;
+    }
+
+    .cake-layer-3 {
+        bottom: 84px;
+    }
+
+    .cake-layer-4 {
+        bottom: 126px;
+    }
+
+    #candle {
+        bottom: 174px;
+    }
+
+
+    /* زرار انجز */
+
+    #finish-button {
+
+        right: 12px;
+        bottom: 12px;
+
+        min-width: 90px;
+        height: 46px;
+
+        padding:
+            0 14px;
+
+        border-radius: 14px;
+
+        font-size: 15px;
+    }
+
+
+    #login-area {
+
+        width: 94%;
+
+        bottom: 3%;
+    }
+
+    #password-box {
+        gap: 7px;
+    }
+
+    #password-input,
+    #enter-button {
+        height: 50px;
+    }
+
+    #password-input {
+        font-size: 14px;
+        padding: 0 8px;
+    }
+
+    #enter-button {
+
+        padding:
+            0 12px;
+
+        font-size: 13px;
+    }
+
+
+    /* الصفحة الثانية */
+
+    #next-page-content {
+
+        height: 100vh;
+
+        min-height: 0;
+
+        padding: 20px 8px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        touch-action: pan-y;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    #next-page-content h2 {
+
+        font-size: 40px;
+    }
+
+    #next-page-content p {
+
+        font-size: 19px;
+
+        line-height: 1.85;
+    }
+
+
+    /* الصور العادية */
+
+    .memory-item > img {
+
+        max-width: 88vw;
+
+        max-height: 50vh;
+
+        border-radius: 14px;
+    }
+
+
+    /* الفيديوهات */
+
+    .memory-video,
+    .memory-item > video {
+
+        width: min(92vw, 600px);
+
+        max-width: 92vw;
+
+        max-height: 52vh;
+
+        border-radius: 14px;
+    }
+
+
+    /* صور 2 و3 و4 */
+
+    .image-row-234 {
+
+        gap: 7px;
+
+        width: 98vw;
+
+        margin:
+            30px auto;
+    }
+
+    .image-row-234 .expandable-image img {
+
+        height: 180px;
+
+        border-radius: 12px;
+    }
+
+    .image-row-234 .expandable-image.active {
+
+        flex: 2.4 1 0;
+    }
+
+    .image-row-234 .expandable-image.active img {
+
+        height: 250px;
+
+        object-fit: contain;
+    }
+
+
+    /* صورة 6 + فيديو 3 */
+
+    .media-row-6-3 {
+
+        width: 98vw;
+
+        gap: 8px;
+
+        margin:
+            30px auto;
+    }
+
+    .media-row-6-3 > img,
+    .media-row-6-3 > video {
+
+        height: 250px;
+
+        border-radius: 12px;
+    }
+
+
+    /* عداد الحب */
+
+    .love-counter {
+
+        min-height: 210px;
+
+        padding:
+            25px 2px;
+
+        margin-bottom: 30px;
+    }
+
+    .love-counter h2 {
+
+        font-size:
+            clamp(
+                19px,
+                5.5vw,
+                28px
+            );
+
+        margin-bottom: 6px;
+    }
+
+    .counter-start-date {
+
+        font-size:
+            14px !important;
+
+        margin-bottom:
+            15px !important;
+    }
+
+    .counter-box {
+
+        width: 99vw;
+
+        gap: 3px;
+
+        padding:
+            10px 3px;
+
+        border-radius: 20px;
+    }
+
+    .counter-item {
+
+        padding:
+            7px 1px;
+    }
+
+    .counter-item span {
+
+        font-size:
+            clamp(
+                15px,
+                5vw,
+                25px
+            );
+    }
+
+    .counter-item small {
+
+        font-size:
+            clamp(
+                7px,
+                2.65vw,
+                12px
+            );
+
+        margin-top: 5px;
+    }
+
+    #background-video {
+
+        object-position:
+            center center;
+    }
+
+    #page-controls {
+
+        right: 12px;
+        bottom: 12px;
+
+        gap: 8px;
+    }
+
+    #page-controls button {
+
+        width: 46px;
+        height: 46px;
+
+        font-size: 19px;
+    }
+}
+
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    #archery-area {
+
+        transform:
+            scale(.58);
+    }
+
+    #power-area {
+
+        width: 155px;
+
+        bottom: 140px;
+    }
+
+    #cake-area {
+
+        width: 240px;
+
+        bottom: 20%;
+    }
+
+    #birthday-text {
+
+        font-size: 19px;
+    }
+
+    #enter-button {
+
+        padding:
+            0 9px;
+
+        font-size: 12px;
+    }
+
+
+    #finish-button {
+
+        right: 10px;
+        bottom: 10px;
+
+        min-width: 82px;
+
+        height: 43px;
+
+        font-size: 14px;
+    }
+
+
+    #next-page-content {
+
+        height: 100vh;
+
+        min-height: 0;
+
+        padding: 15px 4px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        touch-action: pan-y;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    /* الصور 2 و3 و4 */
+
+    .image-row-234 {
+
+        gap: 4px;
+    }
+
+    .image-row-234 .expandable-image img {
+
+        height: 145px;
+
+        border-radius: 9px;
+    }
+
+    .image-row-234 .expandable-image.active img {
+
+        height: 205px;
+    }
+
+
+    /* صورة 6 + فيديو 3 */
+
+    .media-row-6-3 {
+
+        gap: 5px;
+    }
+
+    .media-row-6-3 > img,
+    .media-row-6-3 > video {
+
+        height: 200px;
+
+        border-radius: 9px;
+    }
+
+
+    .love-counter {
+
+        padding:
+            20px 1px;
+    }
+
+    .counter-box {
+
+        width: 99vw;
+
+        gap: 1px;
+
+        padding:
+            8px 1px;
+
+        border-radius: 17px;
+    }
+
+    .counter-item {
+
+        padding:
+            6px 0;
+    }
+
+    .counter-item span {
+
+        font-size:
+            clamp(
+                13px,
+                4.6vw,
+                21px
+            );
+    }
+
+    .counter-item small {
+
+        font-size:
+            clamp(
+                6.5px,
+                2.4vw,
+                10px
+            );
+
+        margin-top: 4px;
+    }
+}
+
+
+/* =========================================================
+   LANDSCAPE MOBILE
+========================================================= */
+
+@media (max-height: 550px) and (orientation: landscape) {
+
+    #archery-area {
+
+        bottom: 5px;
+
+        transform:
+            scale(.55);
+
+        transform-origin:
+            bottom left;
+    }
+
+    #power-area {
+
+        bottom: 125px;
+
+        width: 170px;
+    }
+
+    #cake-area {
+
+        width: 230px;
+        height: 190px;
+
+        bottom: 10%;
+    }
+
+    .cake-layer {
+        height: 40px;
+    }
+
+    .cake-layer-2 {
+        bottom: 36px;
+    }
+
+    .cake-layer-3 {
+        bottom: 72px;
+    }
+
+    .cake-layer-4 {
+        bottom: 108px;
+    }
+
+    #candle {
+        bottom: 142px;
+    }
+
+    #birthday-message {
+        top: 2%;
+    }
+
+    #birthday-text {
+        font-size: 25px;
+        min-height: 40px;
+    }
+
+    #login-area {
+        bottom: 2%;
+    }
+
+    #next-page-content {
+
+        height: 100vh;
+
+        min-height: 0;
+
+        padding: 15px 6px;
+
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        touch-action: pan-y;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #next-page-content h2 {
+        font-size: 35px;
+    }
+
+    #next-page-content p {
+        font-size: 17px;
+    }
+
+
+    /* صور 2 و3 و4 */
+
+    .image-row-234 .expandable-image img {
+
+        height: 190px;
+    }
+
+    .image-row-234 .expandable-image.active img {
+
+        height: 250px;
+    }
+
+
+    /* صورة 6 + فيديو 3 */
+
+    .media-row-6-3 > img,
+    .media-row-6-3 > video {
+
+        height: 230px;
+    }
+
+
+    .love-counter {
+
+        padding:
+            15px 2px;
+
+        min-height: 180px;
+    }
+
+    .love-counter h2 {
+
+        font-size:
+            clamp(
+                18px,
+                4vw,
+                28px
+            );
+    }
+
+    .counter-start-date {
+
+        font-size:
+            13px !important;
+    }
+
+    .counter-box {
+
+        width:
+            min(850px, 98vw);
+
+        padding:
+            8px 5px;
+
+        gap: 3px;
+    }
+
+    .counter-item span {
+
+        font-size:
+            clamp(
+                15px,
+                3vw,
+                25px
+            );
+    }
+
+    .counter-item small {
+
+        font-size:
+            clamp(
+                7px,
+                1.8vw,
+                11px
+            );
+    }
+}
+
+/* =========================================================
+   FIX FIRST PAGE ON MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+    #game {
+        width: 100vw;
+        height: 100dvh;
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    /* الفيل */
+    #target-area {
+        top: 34%;
+    }
+
+    #elephant {
+        font-size: 90px;
+    }
+
+    /* السهم والقوس */
+    #archery-area {
+        left: -8px;
+        bottom: 8px;
+        transform: scale(.58);
+        transform-origin: bottom left;
+    }
+
+    /* زر انجز */
+    #finish-button {
+        position: fixed;
+
+        right: 12px;
+        bottom: 12px;
+
+        width: 90px;
+        min-width: 90px;
+        height: 44px;
+
+        padding: 0;
+
+        font-size: 15px;
+
+        z-index: 1000;
+    }
+
+    /* شريط القوة */
+    #power-area {
+        left: 8px;
+        bottom: 145px;
+        width: 165px;
+    }
+
+    /* لو الموبايل قصير */
+    #birthday-message {
+        top: 3%;
+    }
+
+    #login-area {
+        bottom: 2%;
+        width: 94%;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 380px) {
+
+    #game {
+        height: 100dvh;
+        min-height: 0;
+    }
+
+    #target-area {
+        top: 32%;
+    }
+
+    #elephant {
+        font-size: 82px;
+    }
+
+    #archery-area {
+        left: -12px;
+        bottom: 5px;
+        transform: scale(.52);
+    }
+
+    #power-area {
+        left: 6px;
+        bottom: 125px;
+        width: 150px;
+    }
+
+    #finish-button {
+        right: 9px;
+        bottom: 9px;
+
+        width: 82px;
+        min-width: 82px;
+        height: 41px;
+
+        font-size: 14px;
+    }
+}
